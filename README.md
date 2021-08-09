@@ -7,4 +7,4 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - Using historic RSI and bollinger bands to predict price movement  
 - Scraping insititutional stock reports on high-cap equities  
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="amacarter" data-color="#BD5FFF" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+<a href="https://www.buymeacoffee.com/amacarter"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=amacarter&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"></a>
