@@ -1,4 +1,4 @@
-# HFT-AI-Driven-bot
+# HFT AI Driven python bot
 A High Frequency Trading bot using Artificial Intelligence to identify macroeconomic trends.  
 Utilising US equity market data and derviative outlyers to find inteligent market opportunities.
 
