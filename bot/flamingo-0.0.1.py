@@ -1,6 +1,5 @@
 import alpaca_trade_api as tradeapi
 from alpaca_trade_api.rest import REST
-import logging
 
 if __name__ == '__main__':
 
