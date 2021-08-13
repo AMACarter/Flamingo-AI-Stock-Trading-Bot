@@ -1,4 +1,5 @@
-# HFT AI Driven python bot
+# Flamingo - AI Stock Trading Bot
+### HFT Stock Bot - Driven by AI.
 A High Frequency Trading bot using Artificial Intelligence to identify macroeconomic trends.  
 Utilising US equity market data and derviative outlyers to find inteligent market opportunities.
 
