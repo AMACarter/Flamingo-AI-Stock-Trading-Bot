@@ -18,8 +18,7 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - TradingView REST API for RSI, bollinger bands and momentum indicators.
 - Alpha Vantage, IEX and Polygon institutional data and reports.
 
-Coded in Python.  
-
-** WIP **  
+*Tested on Alpaca Paper Trading Simulation Environment*
+*Coded in Python - WIP*  
 
 <a href="https://www.buymeacoffee.com/amacarter"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=amacarter&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"></a>
