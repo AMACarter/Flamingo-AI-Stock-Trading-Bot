@@ -2,9 +2,15 @@ import alpaca_trade_api as tradeapi
 from alpaca_trade_api.rest import REST
 import logging
 
+print('Flamingo Trading Bot')
+
 if __name__ == '__main__':
 
-api = tradeapi.REST('PKPVWUKI5H0UBVALQUXM','QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh','https://paper-api.alpaca.markets/v2/account')
+    api = tradeapi.REST(
+        'PKPVWUKI5H0UBVALQUXM',
+        'QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh',
+        'https://paper-api.alpaca.markets', api_version='v2'
+    )
 
 # Get our account information.
 account = api.get_account()
@@ -22,9 +28,7 @@ portfolio = api.list_positions()
 # Print the quantity of shares for each position.
 for position in portfolio:
     print("{} shares of {}".format(position.qty, position.symbol))
-
+    
 # Check our current balance vs. our balance at the last market close
 balance_change = float(account.equity) - float(account.last_equity)
-    print(f'Today\'s portfolio balance change: ${balance_change}')
-
-
+print(f'Today\'s portfolio balance change: ${balance_change}')
