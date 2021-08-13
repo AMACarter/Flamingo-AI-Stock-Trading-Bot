@@ -18,7 +18,7 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - TradingView REST API for RSI, bollinger bands and momentum indicators.
 - Alpha Vantage, IEX and Polygon institutional data and reports.
 
-## Future updates:
+### Future updates:
 - Order Book Imbalance Algorithm.
 - Concurrent Scalping Algorithm
 
