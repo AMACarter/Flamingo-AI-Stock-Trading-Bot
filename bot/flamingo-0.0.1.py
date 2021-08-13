@@ -1,6 +1,17 @@
-import alpaca_trade_api as tradeapi
+import alpaca_trade_api as tradeapi # Alpaca API
+import sys 
+import logging # Data logging
+import scipy # Linear algebra
+import numpy # Arrays and Matrices
+import matplotlib # Plotting
+import pandas # Data manipulation
+import sklearn # Machine learning
+
 from alpaca_trade_api.rest import REST
-import logging
+from matplotlib import pyplot
+from pandas import read_csv
+
+# Launch application & GUI - WIP
 
 print('Flamingo Trading Bot')
 
