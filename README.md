@@ -7,7 +7,8 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - Buying call spreads and call 1x2s on Resilient stocks to monetize flat skews and attractive volatility risk premium.
 - Trading short delta  hedged straddles on highly-traded stocks.   
 - Using historic RSI and bollinger bands to predict price movement.  
-- Scraping insititutional stock reports on high-cap equities.  
+- Scraping insititutional stock reports on high-cap equities. 
+- Pre and post market limit trading 
 
 ### Using:
 - Alpaca API to place trades with zero commission.
