@@ -6,14 +6,20 @@ import numpy # Arrays and Matrices
 import matplotlib # Plotting
 import pandas # Data manipulation
 import sklearn # Machine learning
+import tkinter as tk # GUI elements
 
 from alpaca_trade_api.rest import REST
 from matplotlib import pyplot
 from pandas import read_csv
 
 # Launch application & GUI
+# window = tk.Tk()
+# window.title("Flamingo Trading Bot")
 
-print('Flamingo Trading Bot')
+# label = tk.Label(text="")
+# label.pack()
+
+# window.mainloop()
 
 if __name__ == '__main__':
 
