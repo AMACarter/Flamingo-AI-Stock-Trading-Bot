@@ -8,7 +8,7 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - Trading short delta  hedged straddles on highly-traded stocks.   
 - Using historic RSI and bollinger bands to predict price movement.  
 - Scraping insititutional stock reports on high-cap equities. 
-- Pre and post market limit trading 
+- Pre and post market limit trading. 
 
 ### Using:
 - Alpaca API to place trades with zero commission.
