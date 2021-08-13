@@ -11,7 +11,7 @@ from alpaca_trade_api.rest import REST
 from matplotlib import pyplot
 from pandas import read_csv
 
-# Launch application & GUI - WIP
+# Launch application & GUI
 
 print('Flamingo Trading Bot')
 
