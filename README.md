@@ -1,4 +1,5 @@
 # Flamingo - AI Stock Trading Bot
+![Alt Text](https://github.com/AMACarter/Flamingo-AI-Stock-Trading-Bot/blob/main/assets/flamingo_dribbble.gif)
 ### HFT Stock Bot - Driven by AI.
 A High Frequency Trading bot using Artificial Intelligence to identify macroeconomic trends.  
 Utilising US equity market data and derviative outlyers to find inteligent market opportunities.
