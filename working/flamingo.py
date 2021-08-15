@@ -1,4 +1,3 @@
-from working.flamingoAI import flamingo_ai_algo
 import alpaca_trade_api as tradeapi # Alpaca API
 import sys 
 import datetime
@@ -85,4 +84,3 @@ if __name__ == '__main__':
 
     p1.join()
     p2.join()
-    

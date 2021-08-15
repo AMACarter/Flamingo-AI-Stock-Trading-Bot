@@ -16,7 +16,6 @@ import multiprocessing # Thread management
 
 import flamingo # Main module
 
-
 from alpaca_trade_api.rest import REST
 from alpaca_trade_api.rest import TimeFrame
 from matplotlib import pyplot
