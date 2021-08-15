@@ -1,4 +1,3 @@
-from re import T
 import alpaca_trade_api as tradeapi # Alpaca API
 import sys 
 import datetime
@@ -19,6 +18,7 @@ from alpaca_trade_api.rest import TimeFrame
 from matplotlib import pyplot
 from pandas import read_csv
 from multiprocessing import Process
+from re import T
      
 # LAUNCH GUI
 
