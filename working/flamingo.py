@@ -1,3 +1,4 @@
+from working.flamingoAI import flamingo_ai_algo
 import alpaca_trade_api as tradeapi # Alpaca API
 import sys 
 import datetime
@@ -14,6 +15,7 @@ import sklearn # Machine learning
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
 
+import flamingoAI # AI module
 
 from alpaca_trade_api.rest import REST
 from alpaca_trade_api.rest import TimeFrame
@@ -83,3 +85,4 @@ if __name__ == '__main__':
 
     p1.join()
     p2.join()
+    
