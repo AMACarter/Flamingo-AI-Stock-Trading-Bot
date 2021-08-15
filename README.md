@@ -3,7 +3,7 @@
 
 ## Python HFT Stock Bot - Driven by AI.  
 A High Frequency Trading bot using Artificial Intelligence to identify macroeconomic trends.  
-Utilising US equity market data and derviative outlyers to find inteligent market opportunities.
+Utilising US equity market data and derviative outlyers to generate portfolio Alpha.
 
 ### Features:
 - Buying call spreads and call 1x2s on Resilient stocks to monetize flat skews and attractive volatility risk premium.
