@@ -3,7 +3,7 @@
 
 ## Python HFT Stock Bot - Driven by AI.  
 A High Frequency Trading bot using Artificial Intelligence to identify macroeconomic trends.  
-Utilising US equity market data and derviative outlyers to find inteligent market opportunities.
+Utilising US equity market data and derviative outlyers to generate portfolio Alpha.
 
 ### Features:
 - Buying call spreads and call 1x2s on Resilient stocks to monetize flat skews and attractive volatility risk premium.
@@ -22,6 +22,7 @@ Utilising US equity market data and derviative outlyers to find inteligent marke
 - Order Book Imbalance Algorithm.
 - Concurrent Scalping Algorithm
 
+*Can be hosted locally or the cloud*  
 *Tested on Alpaca Paper Trading Simulation Environment*  
 
 <a href="https://www.buymeacoffee.com/amacarter"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=amacarter&button_colour=BD5FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"></a>
