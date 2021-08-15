@@ -16,7 +16,7 @@ Utilising US equity market data and derviative outlyers to generate portfolio Al
 - Alpaca API to place trades with zero commission.
 - Azure/Microsoft Machine Learning for Predictive Modeling.
 - TradingView REST API for RSI, bollinger bands and momentum indicators.
-- Alpha Vantage, IEX and Polygon institutional data and reports.
+- Alpha Vantage, IEX, Polygon and Yahoo Finance institutional data and reports.
 
 ### Future updates:
 - Order Book Imbalance Algorithm.
