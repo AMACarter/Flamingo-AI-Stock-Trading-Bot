@@ -3,6 +3,7 @@ import sys
 import datetime
 import time
 import threading
+import webbrowser
 import logging # Data logging
 import scipy # Linear algebra
 import numpy # Arrays and Matrices
@@ -19,7 +20,7 @@ from matplotlib import pyplot
 from pandas import read_csv
 from multiprocessing import Process
 from re import T
-     
+    
 # LAUNCH GUI
 
 def flamingo_gui():
@@ -63,6 +64,11 @@ def flamingo_startup():
 
     # Logging different components
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+    
+    print("Flamingo Bot Initialised.")
+    
+    # Open broker dashboard
+    webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
 
 # MAIN THREAD
 
@@ -76,6 +82,3 @@ if __name__ == '__main__':
 
     p1.join()
     p2.join()
-
-    print("Flamingo Bot Initialised.")
-
