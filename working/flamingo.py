@@ -7,6 +7,8 @@ import importlib
 import logging # Data logging
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
+from colorama import Fore, Back, Style
+
 
 import flamingoAI # AI module
 
@@ -32,20 +34,42 @@ def flamingo_gui():
 
 def flamingo_startup():
     
-    api = tradeapi.REST(
-        'PKPVWUKI5H0UBVALQUXM',
-        'QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh',
-        'https://paper-api.alpaca.markets', api_version='v2'
+    # Setup Alpaca API 
+    api_key = 'PKPVWUKI5H0UBVALQUXM'
+    api_secret = 'QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh'
+    base_url = 'https://paper-api.alpaca.markets'
+    data_url = 'wss://data.alpaca.markets'
+
+    # Initiate REST API
+    api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
+    
+    # Initiate WebSocket
+    conn = tradeapi.stream2.StreamConn(
+	    api_key,
+	    api_secret,
+	    base_url=base_url,
+	    data_url=data_url,
+	    data_stream='alpacadatav1',
     )
+
     # Get our account information.
     account = api.get_account()
-
-    # Check if our account is restricted from trading.
-    if account.trading_blocked:
-        print('Account is currently restricted from trading.')
-
-    # Check how much money we can use to open new positions.
-        print('${} is available as buying power.'.format(account.buying_power))
+    
+    # Checks account: Equity, value and buying power    
+    print ('${} Equity worth.'.format (account.equity))
+    print ('${} Portfolio value.'.format(account.portfolio_value))
+    print ('${} is available as buying power.'.format(account.buying_power))
+    
+    # Check our current balance vs. our balance at the last market close
+    balance_change = float(account.equity) - float(account.last_equity)
+    print(f'Today\'s portfolio balance change: ${balance_change}')
+    balance_percentage = (balance_change / float(account.last_equity)) * 100
+    
+    if (balance_percentage <= 0):
+        print (Fore.RED + f'{balance_percentage}%')
+    else:
+        print (Fore.GREEN + f'{balance_percentage}%')
+    print(Style.RESET_ALL)
 
     # Get a list of all of our positions.
     portfolio = api.list_positions()
@@ -54,10 +78,6 @@ def flamingo_startup():
     for position in portfolio:
         print("{} shares of {}".format(position.qty, position.symbol))
     
-    # Check our current balance vs. our balance at the last market close
-    balance_change = float(account.equity) - float(account.last_equity)
-    print(f'Today\'s portfolio balance change: ${balance_change}')
-
     # Logging different components
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
     
