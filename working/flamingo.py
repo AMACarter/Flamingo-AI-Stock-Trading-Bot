@@ -2,15 +2,9 @@ import alpaca_trade_api as tradeapi # Alpaca API
 import sys 
 import datetime
 import time
-import threading
 import webbrowser
 import importlib
 import logging # Data logging
-import scipy # Linear algebra
-import numpy # Arrays and Matrices
-import matplotlib # Plotting
-import pandas # Data manipulation
-import sklearn # Machine learning
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
 
