@@ -13,6 +13,7 @@ import pandas # Data manipulation
 import sklearn # Machine learning
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
+import yfinance as yf # Market data
 
 import flamingo # Main module
 
