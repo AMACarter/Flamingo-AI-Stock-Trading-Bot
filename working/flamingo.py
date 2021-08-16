@@ -62,26 +62,26 @@ def flamingo_startup():
     
     # Check our current balance vs. our balance at the last market close
     balance_change = float(account.equity) - float(account.last_equity)
-    print(f'Today\'s portfolio balance change: ${balance_change}')
+    print (f'Today\'s portfolio balance change: ${round (balance_change, 2)}')
     balance_percentage = (balance_change / float(account.last_equity)) * 100
     
     if (balance_percentage <= 0):
-        print (Fore.RED + f'{balance_percentage}%')
+        print (Fore.RED + f'{round (balance_percentage, 2)}%')
     else:
-        print (Fore.GREEN + f'{balance_percentage}%')
-    print(Style.RESET_ALL)
+        print (Fore.GREEN + f'{round (balance_percentage, 2)}%')
+    print (Style.RESET_ALL)
 
     # Get a list of all of our positions.
     portfolio = api.list_positions()
 
     # Print the quantity of shares for each position.
     for position in portfolio:
-        print("{} shares of {}".format(position.qty, position.symbol))
+        print ("{} shares of {}".format(position.qty, position.symbol))
     
     # Logging different components
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
     
-    print("Flamingo Bot Initialised.")
+    print ("Flamingo Bot Initialised.")
     
     # Open broker dashboard
     webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
