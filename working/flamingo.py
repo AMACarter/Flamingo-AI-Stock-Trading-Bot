@@ -4,6 +4,8 @@ import datetime
 import time
 import webbrowser
 import importlib
+import matplotlib.pyplot as plt
+import pandas as pd
 import logging # Data logging
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
@@ -18,38 +20,30 @@ from re import T
 from tkinter import *
 from colorama import Fore, Back, Style
 from functools import partial
-
-def validateAPI(UserApiKey, UserSecretKey):
-    
-    UserApiKey_info = UserApiKey.get()
-    UserSecretKey_info = UserSecretKey.get()
-
-    
+  
 # LAUNCH GUI
 
-# def flamingo_gui():
+def flamingo_gui():
     
-#     window = tk.Tk()
-#     window.title("Flamingo Trading Bot")
-#     window.geometry('400x150')  
+    window = tk.Tk()
+    window.title("Flamingo Trading Bot")
+    window.geometry('400x150')  
         
-#     # Get users API keys
+    # Get users API keys
     
-#     UserApiKeyLabel = tk.Label(window, text="API Key").grid(row=0, column=0)
-#     UserApiKey = StringVar()
-#     UserApiEntry = Entry(window, textvariable=UserApiKey).grid(row=0, column=1)
+    # UserApiKeyLabel = tk.Label(window, text="API Key").grid(row=0, column=0)
+    # UserApiKey = StringVar()
+    # UserApiEntry = Entry(window, textvariable=UserApiKey).grid(row=0, column=1)
     
-#     UserSecretKeyLabel = tk.Label(window, text="Secret key").grid(row=1, column=0)
-#     UserSecretKey = StringVar()
-#     UserSecretKeyEntry = Entry(window, textvariable=UserSecretKey).grid(row=1, column=1)
+    # UserSecretKeyLabel = tk.Label(window, text="Secret key").grid(row=1, column=0)
+    # UserSecretKey = StringVar()
+    # UserSecretKeyEntry = Entry(window, textvariable=UserSecretKey).grid(row=1, column=1)
     
-#     validateAPI = partial(validateAPI, UserApiKey, UserSecretKey)
+    # validateAPI = partial(validateAPI, UserApiKey, UserSecretKey)
     
-#     AuthButton =Button(window, text="Validate", command=validateAPI).grid(row=3, column=1)
-    
-    
+    # AuthButton =Button(window, text="Validate", command=validateAPI).grid(row=3, column=1)
       
-#     window.mainloop() 
+    window.mainloop() 
 
 
 
@@ -111,6 +105,16 @@ def flamingo_startup():
     
     # Logging different components
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+    
+    # Portfolio Plotting
+    api.get_portfolio_history(date_start=None, date_end=None, period=None, timeframe=None, extended_hours=True)
+
+    time = [0, 1, 2, 3]
+    position = [0, 100, 200, 300]
+    
+    plt.plot(time, position)
+    plt.xlabel('Date (day(s))')
+    plt.ylabel('Portfolio Value ($)')
     
     print (Fore.GREEN + "Flamingo Bot Initialised.")
     print (Style.RESET_ALL)
