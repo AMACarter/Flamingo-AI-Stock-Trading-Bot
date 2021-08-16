@@ -7,9 +7,6 @@ import importlib
 import logging # Data logging
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
-from colorama import Fore, Back, Style
-
-
 import flamingoAI # AI module
 
 from alpaca_trade_api.rest import REST
@@ -18,17 +15,43 @@ from matplotlib import pyplot
 from pandas import read_csv
 from multiprocessing import Process
 from re import T
+from tkinter import *
+from colorama import Fore, Back, Style
+from functools import partial
+
+def validateAPI(UserApiKey, UserSecretKey):
+    
+    UserApiKey_info = UserApiKey.get()
+    UserSecretKey_info = UserSecretKey.get()
+
     
 # LAUNCH GUI
 
-def flamingo_gui():
+# def flamingo_gui():
     
-    window = tk.Tk()
-    window.title("Flamingo Trading Bot")
+#     window = tk.Tk()
+#     window.title("Flamingo Trading Bot")
+#     window.geometry('400x150')  
+        
+#     # Get users API keys
+    
+#     UserApiKeyLabel = tk.Label(window, text="API Key").grid(row=0, column=0)
+#     UserApiKey = StringVar()
+#     UserApiEntry = Entry(window, textvariable=UserApiKey).grid(row=0, column=1)
+    
+#     UserSecretKeyLabel = tk.Label(window, text="Secret key").grid(row=1, column=0)
+#     UserSecretKey = StringVar()
+#     UserSecretKeyEntry = Entry(window, textvariable=UserSecretKey).grid(row=1, column=1)
+    
+#     validateAPI = partial(validateAPI, UserApiKey, UserSecretKey)
+    
+#     AuthButton =Button(window, text="Validate", command=validateAPI).grid(row=3, column=1)
+    
+    
+      
+#     window.mainloop() 
 
-    label = tk.Label(text="")
-    label.pack()
-    window.mainloop() 
+
 
 # CONNECTION TO API AND ACCOUNT
 
@@ -93,7 +116,7 @@ def flamingo_startup():
     print (Style.RESET_ALL)
     
     # Open broker dashboard
-    webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
+    # webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
 
 # MAIN THREAD
 
