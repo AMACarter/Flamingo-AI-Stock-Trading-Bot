@@ -5,7 +5,7 @@ import numpy as np
 
 import flamingo # Main module
 
-# USES POLYGON INFORMATION
+# USES ALPACA DATASTEAM INFORMATION
 
 class Quote():
     
