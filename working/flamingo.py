@@ -142,7 +142,7 @@ def flamingo_gui():
     root.geometry("1920x1080")
     
     style = ttk.Style(root)
-    root.tk.call('source', 'assets\ azure dark 2\ azure_dark_3.tcl')
+    root.tk.call('source', 'https://github.com/AMACarter/Flamingo-AI-Stock-Trading-Bot/tree/main/assets/azure%20dark%202')
     style.theme_use('azure')
 
     
