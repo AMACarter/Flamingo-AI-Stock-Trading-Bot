@@ -6,6 +6,8 @@ import webbrowser
 import importlib
 import threading
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from numpy.lib.utils import source
 import pandas as pd
 import numpy as np
 import logging # Data logging
@@ -20,6 +22,8 @@ from pandas import read_csv
 from multiprocessing import Process
 from re import T
 from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import *
 from colorama import Fore, Back, Style
 from functools import partial
 from datetime import datetime
@@ -27,10 +31,9 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
+from matplotlib import style
 
 # CONNECTION TO API AND ACCOUNT
-
-global api
 
 def flamingo_startup():
    
@@ -107,7 +110,7 @@ def flamingo_startup():
 # LAUNCH GUI
 
 def flamingo_gui():
-    
+        
     # Setup Alpaca API 
     api_key = 'PKPVWUKI5H0UBVALQUXM'
     api_secret = 'QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh'
@@ -121,7 +124,9 @@ def flamingo_gui():
     base_url, 
     api_version='v2')
     
+    # Get portfolio history
     histtf={}
+    
     for tf in ['15Min']:
         hist = api.get_portfolio_history(
             date_start='2021-08-15',
@@ -131,33 +136,31 @@ def flamingo_gui():
         ).df
         histtf[tf] = hist
     
+    # Create root for GUI
     root = Tk()
     root.title("Flamingo Trading Bot")
     root.geometry("1920x1080")
     
+    style = ttk.Style(root)
+    root.tk.call('source', 'assets\ azure dark 2\ azure_dark_3.tcl')
+    style.theme_use('azure')
+
+    
+    # Generate Plot
     fig, (ax1,ax2) = plt.subplots(2)
     fig.suptitle('Portfolio')
     ax1.plot(hist.equity)
     ax2.plot(hist.profit_loss)
     
+    # Updater
+    # ani = animation.FuncAnimation(fig, interval=1000)
+    
+    # Snap plot to canvas
     canvas = FigureCanvasTkAgg(fig, root)
     canvas.draw()
     canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
-        
-    # Get users API keys
-    
-    # UserApiKeyLabel = tk.Label(window, text="API Key").grid(row=0, column=0)
-    # UserApiKey = StringVar()
-    # UserApiEntry = Entry(window, textvariable=UserApiKey).grid(row=0, column=1)
-    
-    # UserSecretKeyLabel = tk.Label(window, text="Secret key").grid(row=1, column=0)
-    # UserSecretKey = StringVar()
-    # UserSecretKeyEntry = Entry(window, textvariable=UserSecretKey).grid(row=1, column=1)
-    
-    # validateAPI = partial(validateAPI, UserApiKey, UserSecretKey)
-    
-    # AuthButton =Button(window, text="Validate", command=validateAPI).grid(row=3, column=1)
-      
+    canvas.flush_events()
+         
     root.mainloop() 
 
 
@@ -173,3 +176,5 @@ if __name__ == '__main__':
 
     p1.join()
     p2.join()
+    
+
