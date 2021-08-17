@@ -1,6 +1,7 @@
 import alpaca_trade_api as tradeapi # Alpaca API
 import sys 
 import datetime
+import os
 import time
 import webbrowser
 import importlib
@@ -24,6 +25,8 @@ from re import T
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import *
+from ttkthemes import ThemedTk
+from ttkthemes import ThemedStyle
 from colorama import Fore, Back, Style
 from functools import partial
 from datetime import datetime
@@ -74,7 +77,7 @@ def flamingo_startup():
         
         print (Fore.RED + f'Today\'s portfolio balance change: ${round (balance_change, 2)}')
     else:
-        print (Fore.GREEN + f'Today\'s portfolio balance change: ${round (balance_change, 2)}')
+        print (Fore.GREEN + f'Today\'s portfolio balance change: +${round (balance_change, 2)}')
     
     balance_percentage = (balance_change / float(account.last_equity)) * 100
     
@@ -92,7 +95,7 @@ def flamingo_startup():
     # Print the quantity of shares for each position.
     for position in portfolio:
         print ("{} shares of {}".format(position.qty, position.symbol))
-        
+ 
     # Checking market times
     clock = api.get_clock()
     print(Fore.YELLOW + 'The market is {}'.format('open.' if clock.is_open else 'closed.'))
@@ -137,20 +140,22 @@ def flamingo_gui():
         histtf[tf] = hist
     
     # Create root for GUI
-    root = Tk()
+    root = ThemedTk(theme="Equilux")
     root.title("Flamingo Trading Bot")
     root.geometry("1920x1080")
-    
-    style = ttk.Style(root)
-    root.tk.call('source', 'https://github.com/AMACarter/Flamingo-AI-Stock-Trading-Bot/tree/main/assets/azure%20dark%202')
-    style.theme_use('azure')
 
-    
+       
     # Generate Plot
+    plt.style.use('dark_background')
     fig, (ax1,ax2) = plt.subplots(2)
-    fig.suptitle('Portfolio')
-    ax1.plot(hist.equity)
-    ax2.plot(hist.profit_loss)
+    fig.suptitle('Flamingo Trading', color="pink", fontsize="30")
+    ax1.plot(hist.equity, color="pink")
+    ax1.set(ylabel="Equity ($)")
+    ax1.set_title("Portfolio Equity over time")
+    ax2.plot(hist.profit_loss, color="pink")
+    ax2.set_title("Profit/Loss over time")
+    plt.ylabel("Profit/Loss ($)")
+    plt.xlabel("Date (MM DD TT)")
     
     # Updater
     # ani = animation.FuncAnimation(fig, interval=1000)
@@ -158,8 +163,22 @@ def flamingo_gui():
     # Snap plot to canvas
     canvas = FigureCanvasTkAgg(fig, root)
     canvas.draw()
-    canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
+    canvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=True)
     canvas.flush_events()
+    
+    # Pie chart - portfolio
+    # Get a list of all of our positions.
+    # portfolio = api.list_positions()
+    # for position in portfolio:
+    #        print()
+        
+    # pospie = np.array([position.qty])
+    # pospiename = [position.symbol]
+    # plt.pie(pospie, labels=pospiename)
+    # plt.show()
+ 
+
+    # Print the quantity of shares for each position.
          
     root.mainloop() 
 
