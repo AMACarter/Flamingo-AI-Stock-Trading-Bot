@@ -4,6 +4,7 @@ import datetime
 import time
 import webbrowser
 import importlib
+import threading
 import matplotlib.pyplot as plt
 import pandas as pd
 import logging # Data logging
@@ -58,7 +59,11 @@ def flamingo_startup():
     data_url = 'wss://data.alpaca.markets'
 
     # Initiate REST API
-    api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
+    api = tradeapi.REST(
+        api_key, 
+        api_secret, 
+        base_url, 
+        api_version='v2')
     
     # Initiate WebSocket
     conn = tradeapi.stream2.StreamConn(
@@ -102,19 +107,30 @@ def flamingo_startup():
     # Print the quantity of shares for each position.
     for position in portfolio:
         print ("{} shares of {}".format(position.qty, position.symbol))
+        
+    # Checking market times
+    clock = api.get_clock()
+    print(Fore.YELLOW + 'The market is {}'.format('open.' if clock.is_open else 'closed.'))
+    print (Style.RESET_ALL)
     
     # Logging different components
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
     
     # Portfolio Plotting
-    api.get_portfolio_history(date_start=None, date_end=None, period=None, timeframe=None, extended_hours=True)
-
-    time = [0, 1, 2, 3]
-    position = [0, 100, 200, 300]
-    
-    plt.plot(time, position)
+    histpd={}
+    for pd in ['1D', '2D', '3D', '7D']:
+        hist = api.get_portfolio_history(
+            period=pd,
+            extended_hours=True,
+            timeframe='1Min'
+        ).df
+        histpd[pd] = hist
+    # print(histpd)
+      
+    plt.plot(histpd)
     plt.xlabel('Date (day(s))')
     plt.ylabel('Portfolio Value ($)')
+    plt.show()
     
     print (Fore.GREEN + "Flamingo Bot Initialised.")
     print (Style.RESET_ALL)
