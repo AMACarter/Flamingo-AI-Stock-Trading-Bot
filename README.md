@@ -20,7 +20,8 @@ Utilising US equity market data and derviative outlyers to generate portfolio Al
 
 ### Future updates:
 - Order Book Imbalance Algorithm.
-- Concurrent Scalping Algorithm
+- Concurrent Scalping Algorithm.
+- Insider cluster buying - long term holds.
 
 *Can be hosted locally or the cloud*  
 *Tested on Alpaca Paper Trading Simulation Environment*  
