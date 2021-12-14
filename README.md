@@ -9,6 +9,7 @@ Utilising US equity market data and derviative outlyers to generate portfolio Al
 - Buying call spreads and call 1x2s on Resilient stocks to monetize flat skews and attractive volatility risk premium.
 - Trading short delta  hedged straddles on highly-traded stocks.   
 - Using historic RSI and bollinger bands to predict price movement.  
+- Using Belt-holds and other trend reversal indicators to scalp small profits.
 - Scraping insititutional stock reports on high-cap equities. 
 - Pre and post market limit trading. 
 
