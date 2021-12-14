@@ -15,6 +15,10 @@ import talib # Techincal Analysis
 import logging # Data logging
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
+import yfinance as yf
+from datetime import timedelta
+
+
 # import flamingoAI # AI module
 
 from alpaca_trade_api.rest import REST
@@ -36,6 +40,8 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 from matplotlib import style
+from scipy.signal import argrelextrema
+
 
 # CONNECTION TO API AND ACCOUNT
 
@@ -111,44 +117,76 @@ def flamingo_startup():
     # Open broker dashboard
     # webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
     
+    def get_data(symbol, lookback):
+    
+        all_data = pd.DataFrame()
+        for x in range(lookback):
+            if x == 0:
+                data = api.polygon.historic_agg('minute', symbol, limit=None).df
+            else:
+                data = api.polygon.historic_agg('minute', symbol, _from = (data.index.min() - timedelta(days=5)).strftime('%x %X'), to = start, limit = None).df
+        start = data.index.min().strftime('%x %X')
+        end = data.index.max().strftime('%x %X')
+        all_data = pd.concat([data, all_data], axis=0)
+        all_data.drop(columns=['volume'], inplace=True)
+        all_data.dropna(inplace=True)
+        all_data = all_data[~all_data.index.duplicated()]
+        all_data.replace(0, method='bfill', inplace=True)
+        return all_data   
+     
+    data = get_data('CAT', 3) 
+    data   
+    
+    resampled_data = data.resample('60T', closed='right', label='right').agg({'open': 'first',
+                                                                         'high': 'max',
+                                                                         'low': 'min',
+                                                                         'close': 'last'}).dropna()
+    resampled_data
+    
+    def get_max_min(prices, smoothing, window_range):
+        smooth_prices = prices['close'].rolling(window=smoothing).mean().dropna()
+        local_max = argrelextrema(smooth_prices.values, np.greater)[0]
+        local_min = argrelextrema(smooth_prices.values, np.less)[0]
+        price_local_max_dt = []
+        for i in local_max:
+            if (i>window_range) and (i<len(prices)-window_range):
+                price_local_max_dt.append(prices.iloc[i-window_range:i+window_range]['close'].idxmax())
+        price_local_min_dt = []
+        for i in local_min:
+            if (i>window_range) and (i<len(prices)-window_range):
+                price_local_min_dt.append(prices.iloc[i-window_range:i+window_range]['close'].idxmin())  
+        maxima = pd.DataFrame(prices.loc[price_local_max_dt])
+        minima = pd.DataFrame(prices.loc[price_local_min_dt])
+        max_min = pd.concat([maxima, minima]).sort_index()
+        max_min.index.name = 'date'
+        max_min = max_min.reset_index()
+        max_min = max_min[~max_min.date.duplicated()]
+        p = prices.reset_index()   
+        max_min['day_num'] = p[p['timestamp'].isin(max_min.date)].index.values
+        max_min = max_min.set_index('day_num')['close']
+    
+        return max_min
+
+    smoothing = 3
+    window = 10
+
+    minmax = get_max_min(resampled_data, smoothing, window)
+    minmax    
+    
 # STRATEGY
-
-def flamingo_teststrat():
-    
-    sample_data = [
-  ['Mon', 20, 28, 38, 45],
-  ['Tue', 31, 38, 39, 50],
-  ['Wed', 50, 55, 56, 62],
-  ['Thu', 77, 70, 71, 60],
-  ['Fri', 68, 66, 22, 15],
- ]
-
-    sample_data = pd.DataFrame(sample_data,
-                               columns=["Day","Open","High","Low","Close"])
-
-    open = sample_data['Open']
-    high = sample_data['High']
-    low = sample_data['Low']
-    close = sample_data['Close']
-    
-    talib.CDLBELTHOLD(open, high, low, close)        
-    talib.CDLBREAKAWAY(open, high, low, close)    
-    talib.CDL3BLACKCROWS(open, high, low, close)
-    talib.CDL3STARSINSOUTH(open, high, low, close)
-    talib.CDLRISEFALL3METHODS(open, high, low, close)
-    
+  
 
 # MAIN THREAD
 
 if __name__ == '__main__': 
     
     p1 = multiprocessing.Process(target=flamingo_startup)
-    p2 = multiprocessing.Process(target=flamingo_teststrat)
+#    p2 = multiprocessing.Process(target=get_data)
 
     p1.start()
-    p2.start()
+#    p2.start()
 
     p1.join()
-    p2.join()
+#    p2.join()
     
 
