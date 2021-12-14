@@ -11,10 +11,11 @@ import matplotlib.animation as animation
 from numpy.lib.utils import source
 import pandas as pd
 import numpy as np
+import talib # Techincal Analysis
 import logging # Data logging
 import tkinter as tk # GUI elements
 import multiprocessing # Thread management
-import flamingoAI # AI module
+# import flamingoAI # AI module
 
 from alpaca_trade_api.rest import REST
 from alpaca_trade_api.rest import TimeFrame
@@ -109,86 +110,40 @@ def flamingo_startup():
     
     # Open broker dashboard
     # webbrowser.open('https://app.alpaca.markets/brokerage/dashboard/overview', new=2, autoraise=True)
+    
+# STRATEGY
 
-# LAUNCH GUI
+def flamingo_teststrat():
+    
+    sample_data = [
+  ['Mon', 20, 28, 38, 45],
+  ['Tue', 31, 38, 39, 50],
+  ['Wed', 50, 55, 56, 62],
+  ['Thu', 77, 70, 71, 60],
+  ['Fri', 68, 66, 22, 15],
+ ]
 
-def flamingo_gui():
-        
-    # Setup Alpaca API 
-    api_key = 'PKPVWUKI5H0UBVALQUXM'
-    api_secret = 'QQrNRzBk5RTfVoRX8ISdYrWeQwHh51XmDb6LVSBh'
-    base_url = 'https://paper-api.alpaca.markets'
-    data_url = 'wss://data.alpaca.markets'
-    
-    # Initiate REST API
-    api = tradeapi.REST(
-    api_key, 
-    api_secret, 
-    base_url, 
-    api_version='v2')
-    
-    # Get portfolio history
-    histtf={}
-    
-    for tf in ['15Min']:
-        hist = api.get_portfolio_history(
-            date_start='2021-08-15',
-            period="7D",
-            extended_hours=True,
-            timeframe=tf
-        ).df
-        histtf[tf] = hist
-    
-    # Create root for GUI
-    root = ThemedTk(theme="Equilux")
-    root.title("Flamingo Trading Bot")
-    root.geometry("1920x1080")
+    sample_data = pd.DataFrame(sample_data,
+                               columns=["Day","Open","High","Low","Close"])
 
-       
-    # Generate Plot
-    plt.style.use('dark_background')
-    fig, (ax1,ax2) = plt.subplots(2)
-    fig.suptitle('Flamingo Trading', color="pink", fontsize="30")
-    ax1.plot(hist.equity, color="pink")
-    ax1.set(ylabel="Equity ($)")
-    ax1.set_title("Portfolio Equity over time")
-    ax2.plot(hist.profit_loss, color="pink")
-    ax2.set_title("Profit/Loss over time")
-    plt.ylabel("Profit/Loss ($)")
-    plt.xlabel("Date (MM DD TT)")
+    open = sample_data['Open']
+    high = sample_data['High']
+    low = sample_data['Low']
+    close = sample_data['Close']
     
-    # Updater
-    # ani = animation.FuncAnimation(fig, interval=1000)
+    talib.CDLBELTHOLD(open, high, low, close)        
+    talib.CDLBREAKAWAY(open, high, low, close)    
+    talib.CDL3BLACKCROWS(open, high, low, close)
+    talib.CDL3STARSINSOUTH(open, high, low, close)
+    talib.CDLRISEFALL3METHODS(open, high, low, close)
     
-    # Snap plot to canvas
-    canvas = FigureCanvasTkAgg(fig, root)
-    canvas.draw()
-    canvas.get_tk_widget().pack(side=LEFT, fill=BOTH, expand=True)
-    canvas.flush_events()
-    
-    # Pie chart - portfolio
-    # Get a list of all of our positions.
-    # portfolio = api.list_positions()
-    # for position in portfolio:
-    #        print()
-        
-    # pospie = np.array([position.qty])
-    # pospiename = [position.symbol]
-    # plt.pie(pospie, labels=pospiename)
-    # plt.show()
- 
-
-    # Print the quantity of shares for each position.
-         
-    root.mainloop() 
-
 
 # MAIN THREAD
 
 if __name__ == '__main__': 
     
     p1 = multiprocessing.Process(target=flamingo_startup)
-    p2 = multiprocessing.Process(target=flamingo_gui)
+    p2 = multiprocessing.Process(target=flamingo_teststrat)
 
     p1.start()
     p2.start()
